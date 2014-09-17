@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 // the file is created only when user types a filename else the program automatically exits.
 // the file is saved to the disk only when the user exits the program.
-// Antony Karukapally A0114813N
+// @Antony Karukapally A0114813N
 /*
  * TextBuddy is a command line program which can add, delete, display and clear command entered by the user
  * and is saved into a txt file as specified by the user.
