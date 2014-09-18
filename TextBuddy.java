@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 // the file is created only when user types a filename else the program automatically exits.
 // the file is saved to the disk only when the user exits the program.
@@ -44,6 +45,8 @@ public class TextBuddy {
 	private static final String CLEAR = "clear";
 	private static final String ADD = "add";
 	private static final String DELETE = "delete";
+	private static final String SORT = "sort";
+	private static final String SEARCH = "search";
 	private static final String COMMAND_PROMPT = "command: ";
 
 	// Global content holders
@@ -57,6 +60,10 @@ public class TextBuddy {
 	public static final String MESSAGE_ADD = "added to %s: \"%s\"";
 	public static final String MESSAGE_EMPTY = "%s is empty.";
 	public static final String MESSAGE_DELETE = "deleted from %s: \"%s\"";
+	public static final String MESSAGE_SORT = "file content is sorted alphabetically";
+	public static final String MESSAGE_SEARCH_FAIL = "%s was not found in file";
+	public static final String MESSAGE_SEARCH_SUCCESS = "%s was found in file in locations:";
+	
 	public static final String DISPLAY_FORMAT = "%d. %s";
 
 	public TextBuddy(String inputFilename) {
@@ -133,6 +140,9 @@ public class TextBuddy {
 			case CLEAR:
 				clearContent();
 				break;
+			case SORT:
+				sortItem();
+				break;
 			case EXIT:
 				sc.close();
 				return;
@@ -188,5 +198,9 @@ public class TextBuddy {
 	public void clearContent() {
 		content.clear();
 		System.out.println(String.format(MESSAGE_CLEAR, filename));
+	}
+	public void sortItem(){
+		Collections.sort(content);
+		System.out.println(MESSAGE_SORT);
 	}
 }
