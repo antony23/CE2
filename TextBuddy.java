@@ -62,7 +62,7 @@ public class TextBuddy {
 	public static final String MESSAGE_DELETE = "deleted from %s: \"%s\"";
 	public static final String MESSAGE_SORT = "file content is sorted alphabetically";
 	public static final String MESSAGE_SEARCH_FAIL = "%s was not found in file";
-	public static final String MESSAGE_SEARCH_SUCCESS = "%s was found in file in locations:";
+	public static final String MESSAGE_SEARCH_SUCCESS = "%s was found in file at location(s):";
 	
 	public static final String DISPLAY_FORMAT = "%d. %s";
 
@@ -141,7 +141,10 @@ public class TextBuddy {
 				clearContent();
 				break;
 			case SORT:
-				sortItem();
+				sortContent();
+				break;
+			case SEARCH:
+				searchContent(sc.nextLine().trim());
 				break;
 			case EXIT:
 				sc.close();
@@ -199,8 +202,37 @@ public class TextBuddy {
 		content.clear();
 		System.out.println(String.format(MESSAGE_CLEAR, filename));
 	}
-	public void sortItem(){
+// sorts the content alphabetically	
+	public void sortContent(){
 		Collections.sort(content);
 		System.out.println(MESSAGE_SORT);
+	}
+//searches for the substring in the content and displays which all lines has the searched substring	
+	public void searchContent(String input){
+		ArrayList<Integer> results = getSearchResults(input);
+		printSearchFeedback(input,results);
+	}
+	
+	public ArrayList<Integer> getSearchResults(String input){
+		ArrayList<Integer> output = new ArrayList<Integer>();
+		for(int i=0; i<content.size(); i++){
+			if(content.get(i).contains(input)){
+				output.add(i+1);
+			}
+		}
+		return output;
+	}
+	
+	public void printSearchFeedback(String input, ArrayList<Integer> result){
+		if (result.isEmpty()){
+			System.out.println(String.format(MESSAGE_SEARCH_FAIL,input));
+		} else {
+			System.out.print(String.format(MESSAGE_SEARCH_SUCCESS,input));
+			for (int index : result){
+				System.out.print(" ");
+				System.out.print(index);
+			}
+			System.out.println();
+		}
 	}
 }
